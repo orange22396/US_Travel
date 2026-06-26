@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "name": "LAX 機場停車費",
+    "amount": 240,
+    "currency": "USD",
+    "paidBy": "阿丁",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "transport",
+    "date": "2026-08-21",
+    "note": "停車 9 天"
+  },
+  {
+    "id": 2,
+    "name": "In-N-Out Burger 午餐",
+    "amount": 96,
+    "currency": "USD",
+    "paidBy": "阿君",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-21",
+    "note": "每人約 $12"
+  },
+  {
+    "id": 3,
+    "name": "Airbnb Hollywood Hills",
+    "amount": 640,
+    "currency": "USD",
+    "paidBy": "委員",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "accommodation",
+    "date": "2026-08-21",
+    "note": "2 晚，8 人分攤"
+  },
+  {
+    "id": 4,
+    "name": "Griffith Observatory 停車",
+    "amount": 15,
+    "currency": "USD",
+    "paidBy": "許娘",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "transport",
+    "date": "2026-08-21",
+    "note": ""
+  },
+  {
+    "id": 5,
+    "name": "The Grove 晚餐",
+    "amount": 184,
+    "currency": "USD",
+    "paidBy": "豪豪",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-21",
+    "note": "義大利餐廳，每人約 $23"
+  },
+  {
+    "id": 6,
+    "name": "租車費用（9天）",
+    "amount": 1350,
+    "currency": "USD",
+    "paidBy": "茜茜",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "transport",
+    "date": "2026-08-21",
+    "note": "12 人座廂型車 + 7 座 SUV，含保險"
+  },
+  {
+    "id": 7,
+    "name": "好萊塢星光大道紀念品",
+    "amount": 45,
+    "currency": "USD",
+    "paidBy": "心寧",
+    "participants": ["心寧", "米雪兒"],
+    "category": "shopping",
+    "date": "2026-08-22",
+    "note": "兩人一起買的紀念品"
+  },
+  {
+    "id": 8,
+    "name": "Roscoe's Chicken & Waffles",
+    "amount": 128,
+    "currency": "USD",
+    "paidBy": "米雪兒",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-22",
+    "note": "每人約 $16"
+  },
+  {
+    "id": 9,
+    "name": "MGM Grand 住宿（3晚）",
+    "amount": 567,
+    "currency": "USD",
+    "paidBy": "阿丁",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "accommodation",
+    "date": "2026-08-23",
+    "note": "4 間雙人房 × 3 晚"
+  },
+  {
+    "id": 10,
+    "name": "大峽谷國家公園門票",
+    "amount": 280,
+    "currency": "USD",
+    "paidBy": "阿君",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "attraction",
+    "date": "2026-08-24",
+    "note": "America the Beautiful Pass $80 × 2 車 + 散票"
+  },
+  {
+    "id": 11,
+    "name": "El Tovar Dining Room 午餐",
+    "amount": 216,
+    "currency": "USD",
+    "paidBy": "委員",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-24",
+    "note": "峽谷邊百年餐廳，每人約 $27"
+  },
+  {
+    "id": 12,
+    "name": "High Roller 摩天輪",
+    "amount": 240,
+    "currency": "USD",
+    "paidBy": "許娘",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "attraction",
+    "date": "2026-08-25",
+    "note": "每人 $30"
+  },
+  {
+    "id": 13,
+    "name": "Las Vegas 超市補給",
+    "amount": 156,
+    "currency": "USD",
+    "paidBy": "豪豪",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-25",
+    "note": "Whole Foods 零食水果飲料"
+  },
+  {
+    "id": 14,
+    "name": "優勝美地住宿（2晚）",
+    "amount": 290,
+    "currency": "USD",
+    "paidBy": "茜茜",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "accommodation",
+    "date": "2026-08-26",
+    "note": "Curry Village 4 間小屋 × 2 晚"
+  },
+  {
+    "id": 15,
+    "name": "優勝美地公園門票",
+    "amount": 70,
+    "currency": "USD",
+    "paidBy": "心寧",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "attraction",
+    "date": "2026-08-26",
+    "note": "2 車入場費"
+  },
+  {
+    "id": 16,
+    "name": "Golden Gate Bridge 自行車租借",
+    "amount": 240,
+    "currency": "USD",
+    "paidBy": "米雪兒",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "attraction",
+    "date": "2026-08-28",
+    "note": "8 輛自行車，每輛 $30"
+  },
+  {
+    "id": 17,
+    "name": "Fisherman's Wharf 海鮮晚餐",
+    "amount": 320,
+    "currency": "USD",
+    "paidBy": "阿丁",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-28",
+    "note": "螃蟹 + 龍蝦 + 酸麵包，每人約 $40"
+  },
+  {
+    "id": 18,
+    "name": "Hotel Zeppelin SF（1晚）",
+    "amount": 275,
+    "currency": "USD",
+    "paidBy": "阿君",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "accommodation",
+    "date": "2026-08-28",
+    "note": "4 間雙人房，最後一晚"
+  },
+  {
+    "id": 19,
+    "name": "SFO 機場接送",
+    "amount": 96,
+    "currency": "USD",
+    "paidBy": "委員",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "transport",
+    "date": "2026-08-29",
+    "note": "Uber 兩台大車到機場"
+  },
+  {
+    "id": 20,
+    "name": "Tartine Bakery 午餐",
+    "amount": 112,
+    "currency": "USD",
+    "paidBy": "許娘",
+    "participants": ["阿丁", "阿君", "委員", "許娘", "豪豪", "茜茜", "心寧", "米雪兒"],
+    "category": "food",
+    "date": "2026-08-29",
+    "note": "舊金山最後一餐，麵包 + 咖啡"
+  }
+]

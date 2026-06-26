@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Airbnb Hollywood Hills Villa",
+    "type": "Airbnb",
+    "address": "Hollywood Hills, Los Angeles, CA 90068",
+    "checkIn": "2026-08-21",
+    "checkOut": "2026-08-23",
+    "nights": 2,
+    "pricePerNight": 320,
+    "totalPrice": 640,
+    "mapUrl": "https://maps.google.com/?q=Hollywood+Hills+Los+Angeles",
+    "amenities": ["停車場", "游泳池", "廚房", "洗衣機", "WiFi"],
+    "note": "8 人別墅，含私人泳池，需要自行停車"
+  },
+  {
+    "id": 2,
+    "name": "MGM Grand Hotel & Casino",
+    "type": "Hotel",
+    "address": "3799 S Las Vegas Blvd, Las Vegas, NV 89109",
+    "checkIn": "2026-08-23",
+    "checkOut": "2026-08-26",
+    "nights": 3,
+    "pricePerNight": 189,
+    "totalPrice": 567,
+    "mapUrl": "https://maps.google.com/?q=MGM+Grand+Las+Vegas",
+    "amenities": ["賭場", "游泳池", "健身房", "Spa", "WiFi", "停車場"],
+    "note": "4 間雙人房，需要自費停車費 $18/晚"
+  },
+  {
+    "id": 3,
+    "name": "Half Dome Village (Curry Village)",
+    "type": "Lodge",
+    "address": "Yosemite Valley, Yosemite National Park, CA 95389",
+    "checkIn": "2026-08-26",
+    "checkOut": "2026-08-28",
+    "nights": 2,
+    "pricePerNight": 145,
+    "totalPrice": 290,
+    "mapUrl": "https://maps.google.com/?q=Half+Dome+Village+Yosemite",
+    "amenities": ["餐廳", "淋浴間", "自行車租借", "WiFi（有限）"],
+    "note": "4 間木屋小屋，公園內住宿，需提前半年以上預約"
+  },
+  {
+    "id": 4,
+    "name": "Hotel Zeppelin San Francisco",
+    "type": "Hotel",
+    "address": "545 Post St, San Francisco, CA 94102",
+    "checkIn": "2026-08-28",
+    "checkOut": "2026-08-29",
+    "nights": 1,
+    "pricePerNight": 275,
+    "totalPrice": 275,
+    "mapUrl": "https://maps.google.com/?q=Hotel+Zeppelin+San+Francisco",
+    "amenities": ["健身房", "酒吧", "WiFi", "行李寄存"],
+    "note": "聯合廣場附近，地點超便利，近市場街"
+  }
+]
