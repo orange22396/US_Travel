@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, CalendarDays, Receipt, ArrowLeftRight } from "lucide-react";
+import { Home, CalendarDays, BedDouble, Receipt, ArrowLeftRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", icon: Home, label: "總覽" },
   { href: "/itinerary", icon: CalendarDays, label: "行程" },
+  { href: "/accommodation", icon: BedDouble, label: "住宿" },
   { href: "/expenses", icon: Receipt, label: "分帳" },
   { href: "/settlement", icon: ArrowLeftRight, label: "結算" },
 ];

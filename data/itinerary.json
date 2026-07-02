@@ -155,7 +155,7 @@
         "time": "09:00",
         "name": "Zion Outfitter 領取溯溪裝備",
         "type": "attraction",
-        "note": "⚠️ 備妥防水袋＋手機\n⚠️ 攜帶午餐、行動糧",
+        "note": "📌 Order number: 277410\n⚠️ 備妥防水袋＋手機\n⚠️ 攜帶午餐、行動糧",
         "mapUrl": "https://maps.google.com/?q=Zion+Outfitter+Springdale+Utah"
       },
       {
@@ -240,34 +240,56 @@
   {
     "day": 5,
     "date": "2026-08-25",
+    "dayNote": "📍 Antelope Canyon Tours 須提前填寫網路免責聲明（email 有連結）\n📍 須帶水、隨身零食，包包重要物品不帶或放車上\n☀️ 防曬要注意（帽子／防曬外套／墨鏡）\n🩱 攜帶泳衣、換洗衣物、涼／拖鞋在車上（獨木舟活動用）",
     "items": [
       {
-        "time": "10:00",
-        "name": "The LINQ Promenade 購物",
-        "type": "shopping",
-        "note": "高空摩天輪 High Roller 旁的購物街",
-        "mapUrl": "https://maps.google.com/?q=The+LINQ+Promenade+Las+Vegas"
+        "time": "08:40",
+        "name": "出發",
+        "type": "transport",
+        "note": "",
+        "mapUrl": ""
       },
       {
-        "time": "12:00",
-        "name": "Gordon Ramsay Fish & Chips 午餐",
+        "time": "09:00",
+        "name": "🪨 Dixie's Lower Antelope Canyon Tours",
+        "type": "attraction",
+        "note": "訂單編號：#D-74912 | #D-93481",
+        "mapUrl": "https://maps.app.goo.gl/5zFdX3FnHa759aSJ6"
+      },
+      {
+        "time": "11:30",
+        "name": "🍽️ Page 市區午餐吹冷氣",
         "type": "food",
-        "note": "地獄廚房名廚的炸魚薯條",
-        "mapUrl": "https://maps.google.com/?q=Gordon+Ramsay+Fish+Chips+Las+Vegas"
+        "note": "",
+        "mapUrl": ""
+      },
+      {
+        "time": "13:00",
+        "name": "Lake Powell Paddleboards and Kayaks 報到領裝備",
+        "type": "attraction",
+        "note": "📌 訂單編號：Booking ID: B-W9VMRW5\n🚣 共租借 4 台雙人獨木舟＋4 個防水提袋\n⚠️ 可在此更換泳衣、涼／拖鞋，包包裝好水跟零食",
+        "mapUrl": "https://maps.app.goo.gl/nkbGvoqLuw3mv7Tj8"
       },
       {
         "time": "14:00",
-        "name": "High Roller 摩天輪",
+        "name": "🛶 Lake Powell 獨木舟",
         "type": "attraction",
-        "note": "世界最大摩天輪，俯瞰 Las Vegas",
-        "mapUrl": "https://maps.google.com/?q=High+Roller+Las+Vegas"
+        "note": "📌 Antelope Point Launch Ramp 集合，兩人一台\n📌 17:00 前須回到碼頭",
+        "mapUrl": "https://maps.app.goo.gl/wiVrs3Bp9D78BW2UA"
+      },
+      {
+        "time": "18:00",
+        "name": "🌅 馬蹄灣日落（若昨日未看）",
+        "type": "attraction",
+        "note": "Horseshoe Bend",
+        "mapUrl": "https://maps.app.goo.gl/Acp5Ru6MA3958Q25A"
       },
       {
         "time": "19:00",
-        "name": "Fremont Street Experience",
-        "type": "attraction",
-        "note": "老城區 LED 天幕秀，免費入場",
-        "mapUrl": "https://maps.google.com/?q=Fremont+Street+Experience+Las+Vegas"
+        "name": "🛒 Walmart 買晚餐食材＋煮晚餐",
+        "type": "food",
+        "note": "⚠️ 晚上記得收行李",
+        "mapUrl": "https://maps.app.goo.gl/FF8FJoXAWqpZc1f27"
       }
     ]
   },
@@ -276,32 +298,53 @@
     "date": "2026-08-26",
     "items": [
       {
-        "time": "08:00",
-        "name": "出發前往優勝美地",
+        "time": "08:30",
+        "name": "出發",
         "type": "transport",
-        "note": "自駕約 8 小時，途經 Death Valley",
-        "mapUrl": "https://maps.google.com/?q=Yosemite+National+Park"
+        "note": "⚠️ 請在 Page 先加滿油\n路線：US-89 → Cameron → AZ-64 西行，由大峽谷東口（Desert View Entrance）入園",
+        "mapUrl": ""
       },
       {
-        "time": "12:00",
-        "name": "Death Valley Zabriskie Point",
+        "time": "10:30",
+        "name": "🏜️ 大峽谷東口入園",
         "type": "attraction",
-        "note": "死亡谷奇景，火星地貌",
-        "mapUrl": "https://maps.google.com/?q=Zabriskie+Point+Death+Valley"
+        "note": "Desert View Watchtower（原民手工藝文化介紹）→ Lipan Point → Moran Point → Grandview Point",
+        "mapUrl": "https://maps.google.com/?q=Desert+View+Watchtower+Grand+Canyon"
+      },
+      {
+        "time": "13:00",
+        "name": "🍽️ 午餐：Yavapai Lodge Dining Hall",
+        "type": "food",
+        "note": "",
+        "mapUrl": "https://maps.google.com/?q=Yavapai+Lodge+Grand+Canyon"
+      },
+      {
+        "time": "14:00",
+        "name": "飯店 Kachina Lodge — Check-in",
+        "type": "accommodation",
+        "note": "放行李，稍作休息",
+        "mapUrl": "https://maps.app.goo.gl/iGxfcSrR5NRP15pbA"
+      },
+      {
+        "time": "15:00",
+        "name": "🚌 搭乘接駁車觀景（Hermit's Route）",
+        "type": "transport",
+        "note": "先搭藍線：Bright Angel Lodge → Hermits Rest Route Transfer\n轉乘紅線：Village Route Transfer\n紅線必看：Trailview Overlook、Hopi Point、Mohave Point、Hermit's Rest",
+        "mapUrl": "https://maps.google.com/?q=Hermit+Road+Grand+Canyon"
+      },
+      {
+        "time": "18:00",
+        "name": "🌅 Hopi Point 觀賞日落",
+        "type": "attraction",
+        "note": "",
+        "mapUrl": "https://maps.google.com/?q=Hopi+Point+Grand+Canyon"
       },
       {
         "time": "19:00",
-        "name": "抵達優勝美地入口",
-        "type": "transport",
-        "note": "Yosemite Valley 方向進入",
-        "mapUrl": "https://maps.google.com/?q=Yosemite+Valley+Visitor+Center"
-      },
-      {
-        "time": "20:30",
-        "name": "入住 Curry Village 小屋",
-        "type": "accommodation",
-        "note": "公園內住宿，提前半年以上預約",
-        "mapUrl": "https://maps.google.com/?q=Half+Dome+Village+Yosemite"
+        "name": "🍽️ 飯店附近餐廳晚餐",
+        "type": "food",
+        "note": "🌟 看銀河：Mather Point（需開車）\n⚠️ 晚上請先收拾行李，早上要健行沒空收拾",
+        "mapUrl": "https://maps.google.com/?q=Mather+Point+Grand+Canyon"
       }
     ]
   },
@@ -310,39 +353,60 @@
     "date": "2026-08-27",
     "items": [
       {
-        "time": "07:00",
-        "name": "Valley View 清晨拍照",
+        "time": "06:00",
+        "name": "🌄 日出（自由參加）",
         "type": "attraction",
-        "note": "El Capitan 在朝陽下最美",
-        "mapUrl": "https://maps.google.com/?q=Valley+View+Yosemite"
+        "note": "想看日出的人可在飯店附近觀賞",
+        "mapUrl": "https://maps.google.com/?q=Mather+Point+Grand+Canyon"
       },
       {
-        "time": "09:00",
-        "name": "Yosemite Falls 步道",
+        "time": "07:00",
+        "name": "⛰️ 晨間健行：Bright Angel Trail",
         "type": "attraction",
-        "note": "北美最高瀑布，Lower Falls 約 1 小時",
-        "mapUrl": "https://maps.google.com/?q=Yosemite+Falls+Trail"
+        "note": "啟程處在飯店附近\n健行至 1.5 Miles 休息處折返\n健行完可回飯店沖澡、拿行李",
+        "mapUrl": "https://maps.google.com/?q=Bright+Angel+Trail+Grand+Canyon"
+      },
+      {
+        "time": "09:30",
+        "name": "退房",
+        "type": "accommodation",
+        "note": "📮 Verkamp's Visitor Center 寄明信片",
+        "mapUrl": "https://maps.google.com/?q=Verkamp%27s+Visitor+Center+Grand+Canyon"
+      },
+      {
+        "time": "10:30",
+        "name": "啟程出發",
+        "type": "transport",
+        "note": "⚠️ 出園後需在 Tusayan 加滿油",
+        "mapUrl": ""
       },
       {
         "time": "12:30",
-        "name": "Village Grill Deck 午餐",
+        "name": "🏘️ Seligman 小鎮午餐休息",
         "type": "food",
-        "note": "公園內餐廳，漢堡薯條",
-        "mapUrl": "https://maps.google.com/?q=Village+Grill+Deck+Yosemite"
-      },
-      {
-        "time": "14:00",
-        "name": "Mirror Lake 步道",
-        "type": "attraction",
-        "note": "倒影湖，Half Dome 鏡像",
-        "mapUrl": "https://maps.google.com/?q=Mirror+Lake+Yosemite"
+        "note": "🍦 Delgadillo's Snow Cap 買冰淇淋！",
+        "mapUrl": "https://maps.google.com/?q=Delgadillo%27s+Snow+Cap+Seligman"
       },
       {
         "time": "17:00",
-        "name": "Tunnel View 觀景台",
+        "name": "The Venetian Las Vegas — Check-in",
+        "type": "accommodation",
+        "note": "",
+        "mapUrl": "https://maps.app.goo.gl/QXcUrH9mrjnwGHpD9"
+      },
+      {
+        "time": "18:00",
+        "name": "🍾 慶功晚餐！",
+        "type": "food",
+        "note": "吃個好的，犒賞自己！",
+        "mapUrl": ""
+      },
+      {
+        "time": "21:00",
+        "name": "🌐 Sphere 午夜場",
         "type": "attraction",
-        "note": "最經典的優勝美地全景構圖",
-        "mapUrl": "https://maps.google.com/?q=Tunnel+View+Yosemite"
+        "note": "不進去的人可留在市區逛街、開賭 🎰",
+        "mapUrl": "https://maps.google.com/?q=Sphere+Las+Vegas"
       }
     ]
   },
@@ -352,79 +416,52 @@
     "items": [
       {
         "time": "08:00",
-        "name": "Mariposa Grove 巨杉林",
-        "type": "attraction",
-        "note": "千年巨杉，Grizzly Giant 超震撼",
-        "mapUrl": "https://maps.google.com/?q=Mariposa+Grove+Yosemite"
-      },
-      {
-        "time": "11:00",
-        "name": "出發前往舊金山",
-        "type": "transport",
-        "note": "自駕約 4 小時，翻越山嶺",
-        "mapUrl": "https://maps.google.com/?q=San+Francisco+California"
-      },
-      {
-        "time": "15:30",
-        "name": "Golden Gate Bridge",
-        "type": "attraction",
-        "note": "騎自行車過橋，必打卡",
-        "mapUrl": "https://maps.google.com/?q=Golden+Gate+Bridge"
-      },
-      {
-        "time": "18:00",
-        "name": "Fisherman's Wharf 漁人碼頭",
+        "name": "☕️ 簡易早餐，買杯咖啡上路！",
         "type": "food",
-        "note": "酸麵包海鮮湯、螃蟹、龍蝦",
-        "mapUrl": "https://maps.google.com/?q=Fisherman%27s+Wharf+San+Francisco"
+        "note": "",
+        "mapUrl": ""
       },
       {
-        "time": "20:00",
-        "name": "入住 San Francisco Hotel",
-        "type": "accommodation",
-        "note": "最後一晚，市區飯店",
-        "mapUrl": "https://maps.google.com/?q=Union+Square+San+Francisco"
-      }
-    ]
-  },
-  {
-    "day": 9,
-    "date": "2026-08-29",
-    "items": [
+        "time": "11:30",
+        "name": "🛍️ Outlets at Barstow",
+        "type": "shopping",
+        "note": "逛街＋午餐，14:00 準時出發",
+        "mapUrl": "https://maps.google.com/?q=Outlets+at+Barstow+California"
+      },
       {
-        "time": "09:00",
-        "name": "九曲花街 Lombard Street",
+        "time": "17:00",
+        "name": "📸 Lake Hollywood Park",
         "type": "attraction",
-        "note": "世界最彎曲的街道",
-        "mapUrl": "https://maps.google.com/?q=Lombard+Street+San+Francisco"
-      },
-      {
-        "time": "10:30",
-        "name": "Chinatown 舊金山唐人街",
-        "type": "attraction",
-        "note": "美國最古老唐人街，逛街買紀念品",
-        "mapUrl": "https://maps.google.com/?q=Chinatown+San+Francisco"
-      },
-      {
-        "time": "12:00",
-        "name": "Tartine Bakery 午餐",
-        "type": "food",
-        "note": "舊金山必吃麵包，早早去排隊",
-        "mapUrl": "https://maps.google.com/?q=Tartine+Bakery+San+Francisco"
-      },
-      {
-        "time": "14:30",
-        "name": "前往 SFO 機場",
-        "type": "transport",
-        "note": "提早 3 小時到機場辦理登機",
-        "mapUrl": "https://maps.google.com/?q=San+Francisco+International+Airport"
+        "note": "拍 Hollywood 標誌！時間若不夠可略",
+        "mapUrl": "https://maps.google.com/?q=Lake+Hollywood+Park+Los+Angeles"
       },
       {
         "time": "18:30",
-        "name": "搭機返台",
+        "name": "前往機場還車",
         "type": "transport",
-        "note": "旅程圓滿結束！",
-        "mapUrl": "https://maps.google.com/?q=San+Francisco+International+Airport"
+        "note": "⚠️ 還車前需加滿油",
+        "mapUrl": "https://maps.google.com/?q=LAX+Alamo+Rent+a+Car"
+      },
+      {
+        "time": "22:30",
+        "name": "還車，前往航廈報到",
+        "type": "transport",
+        "note": "😭 跟已經在流淚的會長說再見",
+        "mapUrl": "https://maps.google.com/?q=Los+Angeles+International+Airport"
+      },
+      {
+        "time": "01:25",
+        "name": "✈️ 班機起飛（8/29）",
+        "type": "transport",
+        "note": "國泰航空 CX881",
+        "mapUrl": ""
+      },
+      {
+        "time": "11:00",
+        "name": "🛬 抵達桃園（8/30）",
+        "type": "transport",
+        "note": "國泰航空 CX466，歡迎回家！",
+        "mapUrl": ""
       }
     ]
   }
