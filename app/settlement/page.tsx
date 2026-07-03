@@ -48,7 +48,7 @@ function Avatar({ name }: { name: string }) {
         src={avatarPath(name)}
         alt={shortName(name)}
         fill
-        className="object-cover object-center"
+        className="object-cover object-center scale-[1.35]"
       />
     </div>
   );
@@ -188,11 +188,11 @@ export default function SettlementPage() {
                 <Avatar name={s.from} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-stone-900 text-sm">{s.from}</span>
+                    <span className="font-semibold text-stone-900 text-sm">{shortName(s.from)}</span>
                     <ArrowRight size={14} className="text-stone-300 flex-shrink-0" />
-                    <span className="font-semibold text-stone-900 text-sm">{s.to}</span>
+                    <span className="font-semibold text-stone-900 text-sm">{shortName(s.to)}</span>
                   </div>
-                  <p className="text-xs text-stone-400 mt-0.5">{s.from} 轉帳給 {s.to}</p>
+                  <p className="text-xs text-stone-400 mt-0.5">{shortName(s.from)} 轉帳給 {shortName(s.to)}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
                   <p className="font-bold text-stone-900 text-base">
@@ -240,7 +240,7 @@ export default function SettlementPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Avatar name={member} />
-                      <span className="text-sm font-medium text-stone-900">{member}</span>
+                      <span className="text-sm font-medium text-stone-900">{shortName(member)}</span>
                     </div>
                     <span className="text-sm font-bold text-stone-900">{displayAmt}</span>
                   </div>

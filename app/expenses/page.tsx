@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus, X, ChevronDown, ChevronUp, Trash2, RefreshCw } from "lucide-react";
 import initialExpenses from "@/data/expenses.json";
 import trip from "@/data/trip.json";
+import { shortName } from "@/lib/members";
 
 type Expense = {
   id: number;
@@ -233,7 +234,7 @@ export default function ExpensesPage() {
                       <span className="font-medium text-stone-900 text-sm leading-snug truncate">{expense.name}</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-stone-400">
-                      <span>💳 {expense.paidBy}</span>
+                      <span>💳 {shortName(expense.paidBy)}</span>
                       <span>·</span>
                       <span>{expense.participants.length} 人分攤</span>
                     </div>
@@ -253,7 +254,7 @@ export default function ExpensesPage() {
                 <div className="px-4 pb-4 space-y-3 border-t border-stone-50 pt-3">
                   <div className="flex flex-wrap gap-1">
                     {expense.participants.map((p) => (
-                      <span key={p} className="text-[10px] bg-stone-50 border border-stone-100 rounded-full px-2 py-0.5 text-stone-500">{p}</span>
+                      <span key={p} className="text-[10px] bg-stone-50 border border-stone-100 rounded-full px-2 py-0.5 text-stone-500">{shortName(p)}</span>
                     ))}
                   </div>
                   <div className="flex items-center justify-between">

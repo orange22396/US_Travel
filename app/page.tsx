@@ -81,7 +81,7 @@ function MembersCard() {
                     src={avatarPath(name)}
                     alt={shortName(name)}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center scale-[1.35]"
                   />
                 </div>
                 <span className="text-[11px] text-stone-600 font-medium">{shortName(name)}</span>
