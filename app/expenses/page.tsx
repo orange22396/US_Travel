@@ -372,7 +372,7 @@ export default function ExpensesPage() {
                       form.paidBy === m ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"
                     }`}
                   >
-                    {m}
+                    {shortName(m)}
                   </button>
                 ))}
               </div>
@@ -396,7 +396,7 @@ export default function ExpensesPage() {
                       form.participants.includes(m) ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"
                     }`}
                   >
-                    {m}
+                    {shortName(m)}
                   </button>
                 ))}
               </div>
