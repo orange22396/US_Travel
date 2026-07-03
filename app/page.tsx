@@ -1,17 +1,98 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  MapPin,
-  CalendarDays,
-  Users,
-  Landmark,
-  DollarSign,
-  ChevronRight,
-} from "lucide-react";
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { CalendarDays, ChevronRight, Receipt, ArrowLeftRight, BedDouble } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import trip from "@/data/trip.json";
-import itinerary from "@/data/itinerary.json";
-import expenses from "@/data/expenses.json";
+import { MEMBER_ORDER, memberColors, shortName, avatarPath } from "@/lib/members";
+
+const DEPARTURE = new Date("2026-08-21T00:00:00");
+const END_DATE  = new Date("2026-08-28T23:59:59");
+
+function useCountdown() {
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => {
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(id);
+  }, []);
+  return now;
+}
+
+function CountdownCard() {
+  const now = useCountdown();
+  if (!now) return null;
+
+  const diffMs = DEPARTURE.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  const tripDay = Math.floor((now.getTime() - DEPARTURE.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  const isOnTrip = now >= DEPARTURE && now <= END_DATE;
+  const isAfter  = now > END_DATE;
+
+  return (
+    <Card>
+      <CardContent className="pt-5 pb-5">
+        {isOnTrip ? (
+          <div className="text-center space-y-1">
+            <p className="text-xs text-stone-400 font-medium tracking-wider uppercase">旅行中 🌴</p>
+            <div className="flex items-end justify-center gap-1">
+              <span className="text-6xl font-bold text-stone-900 leading-none">{tripDay}</span>
+              <span className="text-xl text-stone-400 mb-1">天</span>
+            </div>
+            <p className="text-sm text-stone-500">旅行第 {tripDay} 天，繼續享受！</p>
+          </div>
+        ) : isAfter ? (
+          <div className="text-center space-y-1">
+            <p className="text-xs text-stone-400 font-medium tracking-wider uppercase">旅行結束 ✈️</p>
+            <p className="text-2xl font-bold text-stone-900">回到台灣了！</p>
+            <p className="text-sm text-stone-400">美西旅遊，完美收尾 🎉</p>
+          </div>
+        ) : (
+          <div className="text-center space-y-1">
+            <p className="text-xs text-stone-400 font-medium tracking-wider uppercase">距離出發還有</p>
+            <div className="flex items-end justify-center gap-1">
+              <span className="text-6xl font-bold text-stone-900 leading-none">{diffDays}</span>
+              <span className="text-xl text-stone-400 mb-1">天</span>
+            </div>
+            <p className="text-sm text-stone-500">2026 / 08 / 21 · Los Angeles ✈️</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function MembersCard() {
+  return (
+    <Card>
+      <CardContent className="pt-5 pb-5">
+        <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">
+          旅伴 · {trip.members.length} 人
+        </p>
+        <div className="grid grid-cols-4 gap-3">
+          {MEMBER_ORDER.map((name) => {
+            const c = memberColors[name] ?? { bg: "bg-stone-100", text: "text-stone-700", ring: "ring-stone-300" };
+            return (
+              <div key={name} className="flex flex-col items-center gap-1.5">
+                <div className={`relative w-14 h-14 rounded-full ring-2 ${c.ring} overflow-hidden flex-shrink-0`}>
+                  <Image
+                    src={avatarPath(name)}
+                    alt={shortName(name)}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+                <span className="text-[11px] text-stone-600 font-medium">{shortName(name)}</span>
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -25,147 +106,64 @@ function getDays(start: string, end: string) {
 }
 
 const totalDays = getDays(trip.startDate, trip.endDate);
-const totalAttractions = itinerary.reduce((acc, day) => acc + day.items.length, 0);
-const totalExpenses = expenses.reduce((acc, e) => acc + e.amount, 0);
-
-const memberColors = [
-  "bg-rose-100 text-rose-700",
-  "bg-violet-100 text-violet-700",
-  "bg-sky-100 text-sky-700",
-  "bg-emerald-100 text-emerald-700",
-  "bg-amber-100 text-amber-700",
-  "bg-pink-100 text-pink-700",
-  "bg-teal-100 text-teal-700",
-  "bg-orange-100 text-orange-700",
-];
 
 export default function DashboardPage() {
   return (
-    <div className="px-4 pt-10 pb-4 space-y-6">
-      {/* Hero */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 text-stone-400 text-sm">
-          <MapPin size={14} />
-          <span>United States</span>
-        </div>
-        <h1 className="text-3xl font-bold text-stone-900 tracking-tight">
-          {trip.coverEmoji} {trip.name}
-        </h1>
-        <div className="flex items-center gap-2 text-stone-500 text-sm">
-          <CalendarDays size={14} />
-          <span>
-            {formatDate(trip.startDate)} – {formatDate(trip.endDate)}
-          </span>
-          <Badge variant="secondary" className="ml-1">
-            {totalDays} 天
-          </Badge>
+    <div className="pb-4">
+      {/* ── Cover Image ── */}
+      <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
+        <Image
+          src="/cover.jpg"
+          alt="2026 Our 30s U.S. Trip"
+          fill
+          className="object-cover object-top"
+          priority
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-stone-50 to-transparent" />
+        <div className="absolute bottom-3 left-4">
+          <p className="text-xs text-stone-500 font-medium">
+            {formatDate(trip.startDate)} – {formatDate(trip.endDate)} · {totalDays} 天
+          </p>
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        <StatCard
-          icon={<Users size={18} className="text-violet-500" />}
-          label="旅伴"
-          value={`${trip.members.length} 人`}
-          bg="bg-violet-50"
-        />
-        <StatCard
-          icon={<Landmark size={18} className="text-emerald-500" />}
-          label="景點活動"
-          value={`${totalAttractions} 項`}
-          bg="bg-emerald-50"
-          href="/itinerary"
-        />
-        <StatCard
-          icon={<DollarSign size={18} className="text-amber-500" />}
-          label="總支出"
-          value={`$${totalExpenses.toLocaleString()}`}
-          bg="bg-amber-50"
-          href="/expenses"
-        />
-      </div>
+      <div className="px-4 space-y-4 mt-2">
+        {/* 倒數計時 */}
+        <CountdownCard />
 
-      {/* Members */}
-      <Card>
-        <CardContent className="pt-5">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Users size={16} className="text-stone-500" />
-              <span className="font-semibold text-stone-900">旅伴名單</span>
-            </div>
-            <span className="text-sm text-stone-400">{trip.members.length} 人</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {trip.members.map((member, i) => (
-              <span
-                key={member}
-                className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${memberColors[i % memberColors.length]}`}
+        {/* 成員 */}
+        <MembersCard />
+
+        {/* 快速導覽 */}
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest px-1">快速導覽</p>
+          <div className="space-y-2">
+            {[
+              { href: "/itinerary",     label: "行程",  sub: `共 ${totalDays} 天`,   icon: CalendarDays },
+              { href: "/accommodation", label: "住宿",  sub: "飯店 & Airbnb",        icon: BedDouble },
+              { href: "/expenses",      label: "分帳",  sub: "記帳與支出明細",        icon: Receipt },
+              { href: "/settlement",    label: "結算",  sub: "誰欠誰一鍵看清楚",     icon: ArrowLeftRight },
+            ].map(({ href, label, sub, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center justify-between p-4 bg-white rounded-2xl border border-stone-100 shadow-sm active:bg-stone-50 transition-colors"
               >
-                {member}
-              </span>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-stone-100 flex items-center justify-center">
+                    <Icon size={16} className="text-stone-600" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">{label}</p>
+                    <p className="text-xs text-stone-400">{sub}</p>
+                  </div>
+                </div>
+                <ChevronRight size={16} className="text-stone-300" />
+              </Link>
             ))}
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Quick Links */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest px-1">
-          快速導覽
-        </p>
-        <div className="space-y-2">
-          {[
-            { href: "/itinerary", label: "查看完整行程", sub: `共 ${itinerary.length} 天`, icon: CalendarDays },
-            { href: "/expenses", label: "所有支出", sub: `${expenses.length} 筆記錄`, icon: DollarSign },
-            { href: "/settlement", label: "結算誰欠誰", sub: "一鍵看清楚", icon: Users },
-          ].map(({ href, label, sub, icon: Icon }) => (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center justify-between p-4 bg-white rounded-2xl border border-stone-100 shadow-sm active:bg-stone-50 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-stone-100 flex items-center justify-center">
-                  <Icon size={16} className="text-stone-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-stone-900 text-sm">{label}</p>
-                  <p className="text-xs text-stone-400">{sub}</p>
-                </div>
-              </div>
-              <ChevronRight size={16} className="text-stone-300" />
-            </Link>
-          ))}
         </div>
       </div>
     </div>
   );
-}
-
-function StatCard({
-  icon,
-  label,
-  value,
-  bg,
-  href,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  bg: string;
-  href?: string;
-}) {
-  const content = (
-    <Card className="h-full">
-      <CardContent className="pt-5">
-        <div className={`w-9 h-9 rounded-xl ${bg} flex items-center justify-center mb-3`}>
-          {icon}
-        </div>
-        <p className="text-2xl font-bold text-stone-900">{value}</p>
-        <p className="text-xs text-stone-400 mt-0.5">{label}</p>
-      </CardContent>
-    </Card>
-  );
-  return href ? <Link href={href}>{content}</Link> : <div>{content}</div>;
 }

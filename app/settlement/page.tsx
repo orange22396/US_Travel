@@ -5,6 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CheckCircle2, RefreshCw } from "lucide-react";
 import initialExpenses from "@/data/expenses.json";
 import trip from "@/data/trip.json";
+import Image from "next/image";
+import { memberColors, shortName, avatarPath } from "@/lib/members";
 
 type Expense = {
   id: number;
@@ -38,22 +40,16 @@ const categoryConfig: Record<string, { label: string; emoji: string; bar: string
 const CATEGORIES = Object.keys(categoryConfig);
 
 // ── 成員色彩 ──────────────────────────────────────────
-const memberColors: Record<string, string> = {
-  阿丁:   "bg-rose-100 text-rose-700",
-  阿君:   "bg-violet-100 text-violet-700",
-  委員:   "bg-sky-100 text-sky-700",
-  許娘:   "bg-emerald-100 text-emerald-700",
-  豪豪:   "bg-amber-100 text-amber-700",
-  茜茜:   "bg-pink-100 text-pink-700",
-  心寧:   "bg-teal-100 text-teal-700",
-  米雪兒: "bg-orange-100 text-orange-700",
-};
-
 function Avatar({ name }: { name: string }) {
-  const color = memberColors[name] ?? "bg-stone-100 text-stone-700";
+  const c = memberColors[name] ?? { bg: "bg-stone-100", text: "text-stone-700", ring: "ring-stone-200" };
   return (
-    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 ${color}`}>
-      {name[0]}
+    <div className={`relative w-9 h-9 rounded-full ring-2 ${c.ring} overflow-hidden flex-shrink-0`}>
+      <Image
+        src={avatarPath(name)}
+        alt={shortName(name)}
+        fill
+        className="object-cover object-center"
+      />
     </div>
   );
 }
