@@ -23,3 +23,15 @@ export function shortName(name: string): string {
 export function avatarPath(name: string): string {
   return `/avatars/${shortName(name)}.jpg`;
 }
+
+// 個人小語
+export const memberNotes: Record<string, string> = {
+  阿君:   "請寶們幫我付餐費mua😚",
+  茜茜:   "今天冠豪幾顆星🌟",
+  豪豪:   "我叫賴魁星 滿分七顆星",
+  許娘:   "人妻爽口不黏牙\n賭城我pay爽了嗎",
+  阿丁:   "女人，\n只有我能讓你哭泣",
+  委員:   "2027 五子登科",
+  心寧:   "🇺🇸",
+  米雪兒: "🇺🇸",
+};

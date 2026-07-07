@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CalendarDays, ChevronRight, Receipt, ArrowLeftRight, BedDouble } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import trip from "@/data/trip.json";
-import { MEMBER_ORDER, memberColors, shortName, avatarPath } from "@/lib/members";
+import { MEMBER_ORDER, memberColors, shortName, avatarPath, memberNotes } from "@/lib/members";
 
 const DEPARTURE = new Date("2026-08-21T00:00:00");
 const END_DATE  = new Date("2026-08-28T23:59:59");
@@ -65,25 +65,50 @@ function CountdownCard() {
 }
 
 function MembersCard() {
+  const [activeNote, setActiveNote] = useState<string | null>(null);
+
+  function toggle(name: string) {
+    setActiveNote((prev) => (prev === name ? null : name));
+  }
+
   return (
     <Card>
       <CardContent className="pt-5 pb-5">
+        {/* 點背景關閉 */}
+        {activeNote && (
+          <div className="fixed inset-0 z-10" onClick={() => setActiveNote(null)} />
+        )}
         <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest mb-4">
           旅伴 · {trip.members.length} 人
         </p>
         <div className="grid grid-cols-4 gap-3">
           {MEMBER_ORDER.map((name) => {
             const c = memberColors[name] ?? { bg: "bg-stone-100", text: "text-stone-700", ring: "ring-stone-300" };
+            const note = memberNotes[name];
+            const isActive = activeNote === name;
             return (
-              <div key={name} className="flex flex-col items-center gap-1.5">
-                <div className={`relative w-14 h-14 rounded-full ring-2 ${c.ring} overflow-hidden flex-shrink-0`}>
+              <div key={name} className="flex flex-col items-center gap-1.5 relative z-20">
+                {/* 氣泡 */}
+                {isActive && note && (
+                  <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+                    <div className="bg-stone-800/90 backdrop-blur-sm text-white text-[11px] leading-snug rounded-2xl px-3 py-2 w-max max-w-[140px] text-center shadow-lg whitespace-pre-line">
+                      {note}
+                    </div>
+                    {/* 氣泡尾巴 */}
+                    <div className="w-2 h-2 bg-stone-800/90 rotate-45 mx-auto -mt-1 rounded-sm" />
+                  </div>
+                )}
+                <button
+                  onClick={() => toggle(name)}
+                  className={`relative w-14 h-14 rounded-full ring-2 overflow-hidden flex-shrink-0 transition-transform active:scale-90 ${isActive ? c.ring : c.ring}`}
+                >
                   <Image
                     src={avatarPath(name)}
                     alt={shortName(name)}
                     fill
                     className="object-cover object-center scale-[1.35]"
                   />
-                </div>
+                </button>
                 <span className="text-[11px] text-stone-600 font-medium">{shortName(name)}</span>
               </div>
             );
