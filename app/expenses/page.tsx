@@ -272,9 +272,9 @@ export default function ExpensesPage() {
 
       {/* 新增支出 Modal */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40" onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} />
-          <div className="relative bg-white w-full max-w-md rounded-t-3xl px-6 pt-8 pb-28 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-white w-full max-w-md rounded-3xl px-6 pt-6 pb-6 space-y-5 max-h-[85vh] overflow-y-auto shadow-xl">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-stone-900">新增支出</h2>
               <button onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
