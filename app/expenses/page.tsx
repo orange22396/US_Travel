@@ -37,7 +37,7 @@ export default function ExpensesPage() {
   const [showForm, setShowForm] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const [form, setForm] = useState({
+  const defaultForm = {
     name: "",
     amount: "",
     paidBy: trip.members[0],
@@ -45,7 +45,9 @@ export default function ExpensesPage() {
     category: "food",
     date: new Date().toISOString().slice(0, 10),
     note: "",
-  });
+  };
+
+  const [form, setForm] = useState(defaultForm);
 
   const [rate, setRate] = useState<number>(DEFAULT_RATE);
   const [rateStatus, setRateStatus] = useState<"idle" | "loading" | "ok" | "fallback">("idle");
@@ -150,7 +152,7 @@ export default function ExpensesPage() {
           <p className="text-sm text-stone-400 mt-1">{expenses.length} 筆記錄</p>
         </div>
         <button
-          onClick={() => setShowForm(true)}
+          onClick={() => { setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); setShowForm(true); }}
           className="flex items-center gap-1.5 bg-stone-900 text-white text-sm font-medium px-4 py-2 rounded-xl shadow-sm active:scale-95 transition-transform"
         >
           <Plus size={15} />
@@ -271,11 +273,11 @@ export default function ExpensesPage() {
       {/* 新增支出 Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-end justify-center">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setShowForm(false)} />
-          <div className="relative bg-white w-full max-w-md rounded-t-3xl p-6 pb-28 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="absolute inset-0 bg-black/40" onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} />
+          <div className="relative bg-white w-full max-w-md rounded-t-3xl px-6 pt-8 pb-28 space-y-5 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-stone-900">新增支出</h2>
-              <button onClick={() => setShowForm(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
+              <button onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
                 <X size={16} className="text-stone-500" />
               </button>
             </div>
@@ -300,7 +302,7 @@ export default function ExpensesPage() {
                   {rateStatus === "loading" ? <RefreshCw size={11} className="text-stone-300 animate-spin" /> : <span className="text-[10px] text-stone-300">≈</span>}
                   <span className="text-sm font-semibold text-emerald-600">NT${Math.round(amtInput * rate).toLocaleString()}</span>
                   <span className="text-[10px] text-stone-300">
-                    {rateStatus === "loading" ? "抓取匯率中..." : rateStatus === "fallback" ? `匯率 ${rate}（預設值）` : `匯率 ${rate}（Frankfurter）`}
+                    {rateStatus === "loading" ? "抓取匯率中..." : rateStatus === "fallback" ? `匯率 ${rate}（預估）` : `匯率 ${rate}`}
                   </span>
                 </div>
               )}
