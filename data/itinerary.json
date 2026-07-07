@@ -5,7 +5,7 @@
     "items": [
       {
         "time": "17:05",
-        "name": "✈️ 抵達 LAX 國際機場",
+        "name": "✈️ 抵達 LAX 國際機場（航廈 B）",
         "type": "transport",
         "note": "國泰航空 CX882",
         "mapUrl": "https://maps.google.com/?q=Los+Angeles+International+Airport"
@@ -22,14 +22,14 @@
         "name": "搭接駁車前往租車大廳",
         "type": "transport",
         "note": "💡 走出航廈尋找紫色 Rental Car Shuttles 標誌\n💡 Alamo 與 National 接駁車共用",
-        "mapUrl": "https://maps.google.com/?q=LAX+Xpress+Shuttle+Los+Angeles"
+        "mapUrl": ""
       },
       {
         "time": "19:10",
         "name": "Alamo 取車",
         "type": "transport",
         "note": "💡 自助報到機 Kiosk：需準備訂單編號、台灣駕照、國際駕照\n💡 Skip the Counter：直接到停車場取車",
-        "mapUrl": "https://maps.google.com/?q=Dodger+Stadium+Los+Angeles"
+        "mapUrl": ""
       },
       {
         "time": "19:10",
@@ -40,9 +40,9 @@
       },
       {
         "time": "20:10",
-        "name": "飯店 Check-in、停車 — Freehand Los Angeles",
+        "name": "飯店 Check-in：Freehand Los Angeles",
         "type": "accommodation",
-        "note": "Check-in 放行李",
+        "note": "停車、放行李",
         "mapUrl": "https://maps.app.goo.gl/6mcBu2JKPyC1cSYF8"
       },
       {
@@ -64,15 +64,13 @@
         "name": "Uber 返回飯店休息",
         "type": "transport",
         "note": "",
-        "mapUrl": ""
+        "mapUrl": "https://maps.app.goo.gl/Uf3wB7B6W9bhL5RP9"
       }
     ]
   },
   {
     "day": 2,
     "date": "2026-08-22",
-    "dayNote": "需預訂隔日溯溪鞋及裝備 👟 Zion Outfitter",
-    "dayNoteUrl": "https://zionoutfitter.com/zion-rentals/",
     "items": [
       {
         "time": "08:30",
@@ -82,21 +80,21 @@
         "mapUrl": ""
       },
       {
-        "time": "09:30",
-        "name": "🛒 超市採買 — Vons",
+        "time": "09:00",
+        "name": "🛒 附近超市採買",
         "type": "food",
         "note": "行動糧、水、冰桶、早餐",
-        "mapUrl": "https://maps.app.goo.gl/xRq9tqoJKi94udFFA"
+        "mapUrl": ""
       },
       {
-        "time": "12:30",
+        "time": "13:30",
         "name": "抵達 Las Vegas 午餐＋小逛",
         "type": "food",
         "note": "",
         "mapUrl": "https://maps.google.com/?q=Las+Vegas+Strip"
       },
       {
-        "time": "14:00",
+        "time": "14:30",
         "name": "離開 Vegas，途經 St. George 加油",
         "type": "transport",
         "note": "St. George 油價較便宜，記得在這裡加滿！",
@@ -111,10 +109,10 @@
       },
       {
         "time": "19:30",
-        "name": "🛒 超市買食材",
+        "name": "🛒 Kanab 市區超市採購",
         "type": "food",
-        "note": "⚠️ 需買晚餐＋隔日午餐食材\n⚠️ 需買夾鏈袋、隔日行動糧\n① St. George — Smith's\n② Kanab — Honey's Marketplace",
-        "mapUrl": "https://maps.app.goo.gl/ikJ9agM3SMmwWTPr5"
+        "note": "⚠️ 需買晚餐＋隔日午餐食材\n⚠️ 需買夾鏈袋、隔日行動糧",
+        "mapUrl": "https://maps.app.goo.gl/dv6GPhMCw8CnNtSw7"
       },
       {
         "time": "20:30",
