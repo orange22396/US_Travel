@@ -2,31 +2,41 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const date = req.nextUrl.searchParams.get("date") ?? "latest";
-
-  // 判斷是否為未來日期
   const today = new Date().toISOString().slice(0, 10);
   const isFuture = date !== "latest" && date > today;
 
-  // 未來日期直接回傳 fallback，不打 API
+  // 未來日期直接回傳預設值
   if (isFuture) {
     return NextResponse.json({ rate: 32.2, date, source: "fallback" });
   }
 
   try {
-    // 今天或過去日期 → 抓 Frankfurter 真實匯率
-    const url =
-      date === "latest" || date === today
-        ? "https://api.frankfurter.app/latest?from=USD&to=TWD"
-        : `https://api.frankfurter.app/${date}?from=USD&to=TWD`;
+    let rate: number | undefined;
 
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error("Frankfurter API error");
+    if (date === "latest" || date === today) {
+      // 今天 → 抓即時匯率
+      const res = await fetch("https://open.er-api.com/v6/latest/USD", {
+        next: { revalidate: 3600 },
+      });
+      if (!res.ok) throw new Error("open.er-api error");
+      const data = await res.json();
+      rate = data.rates?.TWD;
+    } else {
+      // 過去日期 → 抓歷史匯率（CDN，免費無需 key）
+      const res = await fetch(
+        `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/usd.json`,
+        { next: { revalidate: 86400 } }
+      );
+      if (!res.ok) throw new Error("history api error");
+      const data = await res.json();
+      rate = data.usd?.twd;
+    }
 
-    const data = await res.json();
-    const rate: number = data.rates?.TWD;
     if (!rate) throw new Error("No TWD rate");
 
-    return NextResponse.json({ rate, date: data.date, source: "frankfurter" });
+    // 四捨五入到小數點後兩位
+    const rounded = Math.round(rate * 100) / 100;
+    return NextResponse.json({ rate: rounded, date, source: "live" });
   } catch {
     return NextResponse.json({ rate: 32.2, date, source: "fallback" });
   }
