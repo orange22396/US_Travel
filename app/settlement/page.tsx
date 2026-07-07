@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CheckCircle2, RefreshCw } from "lucide-react";
-import initialExpenses from "@/data/expenses.json";
 import trip from "@/data/trip.json";
 import Image from "next/image";
 import { memberColors, shortName, avatarPath } from "@/lib/members";
+import { supabase } from "@/lib/supabase";
 
 type Expense = {
-  id: number;
+  id: string;
   name: string;
   amount: number;
-  paidBy: string;
+  paid_by: string;
   participants: string[];
   category: string;
   date: string;
@@ -60,7 +60,7 @@ function calcSettlement(expenses: Expense[], members: string[]): Transfer[] {
   members.forEach((m) => (balance[m] = 0));
   expenses.forEach((e) => {
     const share = e.amount / e.participants.length;
-    balance[e.paidBy] = (balance[e.paidBy] ?? 0) + e.amount;
+    balance[e.paid_by] = (balance[e.paid_by] ?? 0) + e.amount;
     e.participants.forEach((p) => { balance[p] = (balance[p] ?? 0) - share; });
   });
 
@@ -106,16 +106,18 @@ function calcPersonal(expenses: Expense[], member: string) {
   return { totalUSD, totalTWD: Math.round(totalTWD), byCategory };
 }
 
-const STORAGE_KEY = "travel-expenses";
-
 export default function SettlementPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isTWD, setIsTWD] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    const raw = saved ? JSON.parse(saved) : initialExpenses;
-    setExpenses((raw as Partial<Expense>[]).map((e) => ({ ...e, rate: e.rate ?? 32.2 } as Expense)));
+    supabase
+      .from("expenses")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data) setExpenses(data as Expense[]);
+      });
   }, []);
 
   const totalUSD = expenses.reduce((a, e) => a + e.amount, 0);

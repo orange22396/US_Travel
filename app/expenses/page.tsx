@@ -3,46 +3,40 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, X, ChevronDown, ChevronUp, Trash2, RefreshCw } from "lucide-react";
-import initialExpenses from "@/data/expenses.json";
 import trip from "@/data/trip.json";
 import { shortName } from "@/lib/members";
+import { supabase } from "@/lib/supabase";
 
 type Expense = {
-  id: number;
+  id: string;
   name: string;
   amount: number;
   currency: string;
-  paidBy: string;
+  paid_by: string;
   participants: string[];
   category: string;
   date: string;
   note: string;
-  rate: number;   // 當日 USD→TWD 匯率（儲存於記錄中）
+  rate: number;
 };
 
 const categoryConfig: Record<string, { label: string; emoji: string }> = {
-  transport:     { label: "交通", emoji: "🚗" },
-  food:          { label: "餐飲", emoji: "🍔" },
-  accommodation: { label: "住宿", emoji: "🏨" },
+  transport:     { label: "交通",     emoji: "🚗" },
+  food:          { label: "餐飲",     emoji: "🍔" },
+  accommodation: { label: "住宿",     emoji: "🏨" },
   attraction:    { label: "景點/活動", emoji: "🎡" },
-  shopping:      { label: "購物", emoji: "🛍️" },
-  other:         { label: "其他", emoji: "📦" },
+  shopping:      { label: "購物",     emoji: "🛍️" },
+  other:         { label: "其他",     emoji: "📦" },
 };
 
-const STORAGE_KEY = "travel-expenses";
 const DEFAULT_RATE = 32.2;
-
-// 補齊舊資料沒有 rate 的情況
-function normalizeExpense(e: Partial<Expense>): Expense {
-  return { ...e, rate: e.rate ?? DEFAULT_RATE } as Expense;
-}
 
 export default function ExpensesPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // 表單狀態
   const [form, setForm] = useState({
     name: "",
     amount: "",
@@ -53,19 +47,21 @@ export default function ExpensesPage() {
     note: "",
   });
 
-  // 匯率狀態
   const [rate, setRate] = useState<number>(DEFAULT_RATE);
   const [rateStatus, setRateStatus] = useState<"idle" | "loading" | "ok" | "fallback">("idle");
 
-  // 從 localStorage 載入
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      setExpenses((JSON.parse(saved) as Partial<Expense>[]).map(normalizeExpense));
-    } else {
-      setExpenses((initialExpenses as Partial<Expense>[]).map(normalizeExpense));
-    }
-  }, []);
+  // 從 Supabase 載入
+  async function fetchExpenses() {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("expenses")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (!error && data) setExpenses(data as Expense[]);
+    setLoading(false);
+  }
+
+  useEffect(() => { fetchExpenses(); }, []);
 
   // 抓匯率
   const fetchRate = useCallback(async (date: string) => {
@@ -81,52 +77,47 @@ export default function ExpensesPage() {
     }
   }, []);
 
-  // 開啟表單時抓今天匯率
   useEffect(() => {
     if (showForm) fetchRate(form.date);
   }, [showForm, fetchRate, form.date]);
 
-  // 日期變更時重抓
   function handleDateChange(date: string) {
     setForm((f) => ({ ...f, date }));
     fetchRate(date);
   }
 
-  // 儲存
-  function save(updated: Expense[]) {
-    setExpenses(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  }
-
-  function addExpense() {
+  async function addExpense() {
     if (!form.name || !form.amount || form.participants.length === 0) return;
-    const newExpense: Expense = {
-      id: Date.now(),
+    const newExpense = {
       name: form.name,
       amount: parseFloat(form.amount),
       currency: "USD",
-      paidBy: form.paidBy,
+      paid_by: form.paidBy,
       participants: form.participants,
       category: form.category,
       date: form.date,
       note: form.note,
-      rate,   // 儲存當下抓到的匯率
+      rate,
     };
-    save([newExpense, ...expenses]);
-    setShowForm(false);
-    setForm({
-      name: "",
-      amount: "",
-      paidBy: trip.members[0],
-      participants: [...trip.members],
-      category: "food",
-      date: new Date().toISOString().slice(0, 10),
-      note: "",
-    });
+    const { error } = await supabase.from("expenses").insert([newExpense]);
+    if (!error) {
+      await fetchExpenses();
+      setShowForm(false);
+      setForm({
+        name: "",
+        amount: "",
+        paidBy: trip.members[0],
+        participants: [...trip.members],
+        category: "food",
+        date: new Date().toISOString().slice(0, 10),
+        note: "",
+      });
+    }
   }
 
-  function deleteExpense(id: number) {
-    save(expenses.filter((e) => e.id !== id));
+  async function deleteExpense(id: string) {
+    await supabase.from("expenses").delete().eq("id", id);
+    setExpenses((prev) => prev.filter((e) => e.id !== id));
   }
 
   function toggleParticipant(member: string) {
@@ -141,6 +132,7 @@ export default function ExpensesPage() {
   const totalUSD = expenses.reduce((a, e) => a + e.amount, 0);
   const totalTWD = expenses.reduce((a, e) => a + Math.round(e.amount * e.rate), 0);
   const perPerson = trip.members.length > 0 ? totalUSD / trip.members.length : 0;
+  const amtInput = parseFloat(form.amount || "0");
 
   const categoryTotals = Object.entries(
     expenses.reduce((acc, e) => {
@@ -148,8 +140,6 @@ export default function ExpensesPage() {
       return acc;
     }, {} as Record<string, number>)
   ).sort((a, b) => b[1] - a[1]);
-
-  const amtInput = parseFloat(form.amount || "0");
 
   return (
     <div className="px-4 pt-10 pb-4 space-y-6">
@@ -213,7 +203,13 @@ export default function ExpensesPage() {
       {/* Expense list */}
       <div className="space-y-2">
         <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest px-1">所有支出</p>
-        {expenses.length === 0 && (
+        {loading && (
+          <div className="text-center py-8 text-stone-300">
+            <RefreshCw size={20} className="animate-spin mx-auto mb-2" />
+            <p className="text-sm">載入中...</p>
+          </div>
+        )}
+        {!loading && expenses.length === 0 && (
           <div className="text-center py-12 text-stone-300">
             <p className="text-4xl mb-2">🧾</p>
             <p className="text-sm">還沒有支出記錄</p>
@@ -234,7 +230,7 @@ export default function ExpensesPage() {
                       <span className="font-medium text-stone-900 text-sm leading-snug truncate">{expense.name}</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-stone-400">
-                      <span>💳 {shortName(expense.paidBy)}</span>
+                      <span>💳 {shortName(expense.paid_by)}</span>
                       <span>·</span>
                       <span>{expense.participants.length} 人分攤</span>
                     </div>
@@ -272,7 +268,7 @@ export default function ExpensesPage() {
         })}
       </div>
 
-      {/* ── 新增支出 Modal ── */}
+      {/* 新增支出 Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-end justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => setShowForm(false)} />
@@ -284,101 +280,62 @@ export default function ExpensesPage() {
               </button>
             </div>
 
-            {/* 名稱 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">支出名稱 *</label>
-              <input
-                type="text"
-                placeholder="例：晚餐、計程車..."
-                value={form.name}
+              <input type="text" placeholder="例：晚餐、計程車..." value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900"
-              />
+                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900" />
             </div>
 
-            {/* 金額 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">金額（USD）*</label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">$</span>
-                <input
-                  type="number"
-                  placeholder="0.00"
-                  value={form.amount}
+                <input type="number" placeholder="0.00" value={form.amount}
                   onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
-                  className="w-full border border-stone-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900"
-                />
+                  className="w-full border border-stone-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900" />
               </div>
-              {/* 即時台幣換算 */}
               {amtInput > 0 && (
                 <div className="flex items-center gap-1.5 px-1">
-                  {rateStatus === "loading" ? (
-                    <RefreshCw size={11} className="text-stone-300 animate-spin" />
-                  ) : (
-                    <span className="text-[10px] text-stone-300">≈</span>
-                  )}
-                  <span className="text-sm font-semibold text-emerald-600">
-                    NT${Math.round(amtInput * rate).toLocaleString()}
-                  </span>
+                  {rateStatus === "loading" ? <RefreshCw size={11} className="text-stone-300 animate-spin" /> : <span className="text-[10px] text-stone-300">≈</span>}
+                  <span className="text-sm font-semibold text-emerald-600">NT${Math.round(amtInput * rate).toLocaleString()}</span>
                   <span className="text-[10px] text-stone-300">
-                    {rateStatus === "loading"
-                      ? "抓取匯率中..."
-                      : rateStatus === "fallback"
-                      ? `匯率 ${rate}（預設值）`
-                      : `匯率 ${rate}（Frankfurter）`}
+                    {rateStatus === "loading" ? "抓取匯率中..." : rateStatus === "fallback" ? `匯率 ${rate}（預設值）` : `匯率 ${rate}（Frankfurter）`}
                   </span>
                 </div>
               )}
             </div>
 
-            {/* 日期 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">日期</label>
-              <input
-                type="date"
-                value={form.date}
-                onChange={(e) => handleDateChange(e.target.value)}
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-900"
-              />
+              <input type="date" value={form.date} onChange={(e) => handleDateChange(e.target.value)}
+                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-900" />
             </div>
 
-            {/* 類別 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">類別</label>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(categoryConfig).map(([key, { label, emoji }]) => (
-                  <button
-                    key={key}
-                    onClick={() => setForm((f) => ({ ...f, category: key }))}
-                    className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                      form.category === key ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"
-                    }`}
-                  >
+                  <button key={key} onClick={() => setForm((f) => ({ ...f, category: key }))}
+                    className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-full border transition-colors ${form.category === key ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"}`}>
                     {emoji} {label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 付款人 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">付款人</label>
               <div className="flex flex-wrap gap-2">
                 {trip.members.map((m) => (
-                  <button
-                    key={m}
-                    onClick={() => setForm((f) => ({ ...f, paidBy: m }))}
-                    className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                      form.paidBy === m ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"
-                    }`}
-                  >
+                  <button key={m} onClick={() => setForm((f) => ({ ...f, paidBy: m }))}
+                    className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${form.paidBy === m ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"}`}>
                     {shortName(m)}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* 參與人 */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-semibold text-stone-500">參與人（{form.participants.length} 人）</label>
@@ -389,41 +346,27 @@ export default function ExpensesPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {trip.members.map((m) => (
-                  <button
-                    key={m}
-                    onClick={() => toggleParticipant(m)}
-                    className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                      form.participants.includes(m) ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"
-                    }`}
-                  >
+                  <button key={m} onClick={() => toggleParticipant(m)}
+                    className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${form.participants.includes(m) ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-600 border-stone-200"}`}>
                     {shortName(m)}
                   </button>
                 ))}
               </div>
               {form.participants.length > 0 && amtInput > 0 && (
-                <p className="text-xs text-stone-400">
-                  每人 ${(amtInput / form.participants.length).toFixed(2)} ≈ NT${Math.round((amtInput * rate) / form.participants.length).toLocaleString()}
-                </p>
+                <p className="text-xs text-stone-400">每人 ${(amtInput / form.participants.length).toFixed(2)} ≈ NT${Math.round((amtInput * rate) / form.participants.length).toLocaleString()}</p>
               )}
             </div>
 
-            {/* 備註 */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-stone-500">備註（選填）</label>
-              <input
-                type="text"
-                placeholder="補充說明..."
-                value={form.note}
+              <input type="text" placeholder="補充說明..." value={form.note}
                 onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
-                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900"
-              />
+                className="w-full border border-stone-200 rounded-xl px-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-2 focus:ring-stone-900" />
             </div>
 
-            <button
-              onClick={addExpense}
+            <button onClick={addExpense}
               disabled={!form.name || !form.amount || form.participants.length === 0}
-              className="w-full bg-stone-900 text-white font-semibold py-3 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-transform"
-            >
+              className="w-full bg-stone-900 text-white font-semibold py-3 rounded-xl disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 transition-transform">
               新增支出
             </button>
           </div>
