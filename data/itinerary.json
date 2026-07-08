@@ -165,27 +165,20 @@
       },
       {
         "time": "10:00",
-        "name": "🏞️ 溯溪活動：The Narrows Hike",
+        "name": "🏞️ 溯溪活動：The Zion Narrows Riverside Walk",
         "type": "attraction",
-        "note": "",
+        "note": "路線：前段 Riverside Walk（有步道，來回 1.5 小時）＋步道接續 The Narrows 溯溪（視情況折返，終點為 Big Spring）\n午餐：路途中找時間休息＋午餐",
         "mapUrl": "https://maps.google.com/?q=The+Narrows+Zion+National+Park"
       },
       {
-        "time": "14:00",
-        "name": "🍱 午餐＋休息",
-        "type": "food",
-        "note": "於起點享用自備午餐",
-        "mapUrl": ""
-      },
-      {
-        "time": "15:00",
-        "name": "⛰️ 健行：Canyon Overlook Trail",
+        "time": "未定",
+        "name": "⛰️ 健行：Canyon Overlook Trail（若有時間有體力）",
         "type": "attraction",
-        "note": "園區內步道，路程約 1 小時",
+        "note": "園區內步道，路程約 1 小時\n若 The Narrows 好玩就整天玩就夠，除非提早結束",
         "mapUrl": "https://maps.google.com/?q=Canyon+Overlook+Trail+Zion"
       },
       {
-        "time": "16:30",
+        "time": "17:00",
         "name": "離開園區，返回 Airbnb",
         "type": "transport",
         "note": "⚠️ 返家路上購買晚餐食材",
