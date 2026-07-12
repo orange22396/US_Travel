@@ -6,6 +6,7 @@ import { Plus, X, ChevronDown, ChevronUp, Trash2, RefreshCw } from "lucide-react
 import trip from "@/data/trip.json";
 import { shortName } from "@/lib/members";
 import { supabase } from "@/lib/supabase";
+import { localDateString } from "@/lib/utils";
 
 type Expense = {
   id: string;
@@ -43,7 +44,7 @@ export default function ExpensesPage() {
     paidBy: trip.members[0],
     participants: [...trip.members],
     category: "food",
-    date: new Date().toISOString().slice(0, 10),
+    date: localDateString(),
     note: "",
   };
 
@@ -111,7 +112,7 @@ export default function ExpensesPage() {
         paidBy: trip.members[0],
         participants: [...trip.members],
         category: "food",
-        date: new Date().toISOString().slice(0, 10),
+        date: localDateString(),
         note: "",
       });
     }
@@ -152,7 +153,7 @@ export default function ExpensesPage() {
           <p className="text-sm text-stone-400 mt-1">{expenses.length} 筆記錄</p>
         </div>
         <button
-          onClick={() => { setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); setShowForm(true); }}
+          onClick={() => { setForm({ ...defaultForm, date: localDateString() }); setShowForm(true); }}
           className="flex items-center gap-1.5 bg-stone-900 text-white text-sm font-medium px-4 py-2 rounded-xl shadow-sm active:scale-95 transition-transform"
         >
           <Plus size={15} />
@@ -273,11 +274,11 @@ export default function ExpensesPage() {
       {/* 新增支出 Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/40" onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} />
+          <div className="absolute inset-0 bg-black/40" onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: localDateString() }); }} />
           <div className="relative bg-white w-full max-w-md rounded-3xl px-6 pt-6 pb-6 space-y-5 max-h-[85vh] overflow-y-auto shadow-xl">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-stone-900">新增支出</h2>
-              <button onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: new Date().toISOString().slice(0, 10) }); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
+              <button onClick={() => { setShowForm(false); setForm({ ...defaultForm, date: localDateString() }); }} className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-100">
                 <X size={16} className="text-stone-500" />
               </button>
             </div>

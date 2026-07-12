@@ -5,11 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ChevronRight, Receipt, ArrowLeftRight, BedDouble } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { parseLocalDate } from "@/lib/utils";
 import trip from "@/data/trip.json";
 import { MEMBER_ORDER, memberColors, shortName, avatarPath, memberNotes } from "@/lib/members";
 
-const DEPARTURE = new Date("2026-08-21T00:00:00");
-const END_DATE  = new Date("2026-08-28T23:59:59");
+const DEPARTURE = parseLocalDate("2026-08-21");
+const END_DATE  = parseLocalDate("2026-08-28");
 
 function useCountdown() {
   const [now, setNow] = useState<Date | null>(null);
@@ -120,13 +121,13 @@ function MembersCard() {
 }
 
 function formatDate(dateStr: string) {
-  const d = new Date(dateStr);
+  const d = parseLocalDate(dateStr);
   return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
 }
 
 function getDays(start: string, end: string) {
-  const s = new Date(start);
-  const e = new Date(end);
+  const s = parseLocalDate(start);
+  const e = parseLocalDate(end);
   return Math.round((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 }
 

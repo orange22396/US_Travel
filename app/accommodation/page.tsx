@@ -1,10 +1,11 @@
 import { MapPin, ExternalLink, BedDouble, Bath, UtensilsCrossed } from "lucide-react";
+import { parseLocalDate } from "@/lib/utils";
 import accommodations from "@/data/accommodation.json";
 
 const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
 
 function formatDate(dateStr: string) {
-  const d = new Date(dateStr);
+  const d = parseLocalDate(dateStr);
   return `${d.getMonth() + 1}/${d.getDate()} (${weekdays[d.getDay()]})`;
 }
 

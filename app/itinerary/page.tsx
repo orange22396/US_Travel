@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { MapPin, ExternalLink, NotebookPen, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { parseLocalDate } from "@/lib/utils";
 import itinerary from "@/data/itinerary.json";
 
 const typeConfig: Record<string, {
@@ -20,7 +21,7 @@ const typeConfig: Record<string, {
 const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
 
 function formatDayHeader(dateStr: string) {
-  const d = new Date(dateStr);
+  const d = parseLocalDate(dateStr);
   return `${d.getMonth() + 1}/${d.getDate()} (${weekdays[d.getDay()]})`;
 }
 
@@ -31,8 +32,9 @@ type DayData = typeof itinerary[number] & {
 
 /** 根據今天日期找對應 Day，找不到就回 0（Day 1） */
 function getDefaultDayIndex(): number {
-  const today = new Date().toISOString().slice(0, 10);
-  const idx = itinerary.findIndex((d) => d.date === today);
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const idx = itinerary.findIndex((d) => d.date === todayStr);
   return idx >= 0 ? idx : 0;
 }
 
@@ -74,7 +76,7 @@ export default function ItineraryPage() {
         className="flex gap-2 px-4 overflow-x-auto scrollbar-none flex-shrink-0 pb-1"
       >
         {itinerary.map((d, idx) => {
-          const date = new Date(d.date);
+          const date = parseLocalDate(d.date);
           const isActive = idx === activeIdx;
           const isToday = d.date === new Date().toISOString().slice(0, 10);
           return (
