@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, ChevronRight, Receipt, ArrowLeftRight, BedDouble } from "lucide-react";
+import { CalendarDays, ChevronRight, Receipt, ArrowLeftRight, BedDouble, PackageCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { parseLocalDate } from "@/lib/utils";
 import trip from "@/data/trip.json";
@@ -157,6 +157,23 @@ export default function DashboardPage() {
         {/* 倒數計時 */}
         <CountdownCard />
 
+        {/* 行前準備入口 */}
+        <Link
+          href="/pre-trip"
+          className="flex items-center justify-between p-4 bg-amber-50 rounded-2xl border border-amber-100 shadow-sm active:bg-amber-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 flex items-center justify-center">
+              <PackageCheck size={16} className="text-amber-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-amber-900 text-sm">準備好要去看彎彎人了嗎？</p>
+              <p className="text-xs text-amber-500">行李清單 · 文件確認</p>
+            </div>
+          </div>
+          <ChevronRight size={16} className="text-amber-300" />
+        </Link>
+
         {/* 成員 */}
         <MembersCard />
 
@@ -165,10 +182,11 @@ export default function DashboardPage() {
           <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest px-1">快速導覽</p>
           <div className="space-y-2">
             {[
-              { href: "/itinerary",     label: "行程",  sub: `共 ${totalDays} 天`,   icon: CalendarDays },
-              { href: "/accommodation", label: "住宿",  sub: "飯店 & Airbnb",        icon: BedDouble },
-              { href: "/expenses",      label: "分帳",  sub: "記帳與支出明細",        icon: Receipt },
-              { href: "/settlement",    label: "結算",  sub: "誰欠誰一鍵看清楚",     icon: ArrowLeftRight },
+              { href: "/itinerary",     label: "行程",    sub: `共 ${totalDays} 天`,   icon: CalendarDays },
+              { href: "/accommodation", label: "住宿",    sub: "飯店 & Airbnb",        icon: BedDouble },
+              { href: "/expenses",      label: "分帳",    sub: "記帳與支出明細",        icon: Receipt },
+              { href: "/settlement",    label: "結算",    sub: "誰欠誰一鍵看清楚",     icon: ArrowLeftRight },
+              { href: "/pre-trip",      label: "行前準備", sub: "行李清單 · 文件確認",  icon: PackageCheck },
             ].map(({ href, label, sub, icon: Icon }) => (
               <Link
                 key={href}
